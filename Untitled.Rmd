@@ -1,0 +1,39 @@
+---
+title: 'CPDA SP18 Assignment #1'
+output:
+  pdf_document: default
+  html_notebook: default
+---
+Consider the following Matrix:
+```{r}
+A <- matrix(c(8,-1,2,-1,2,-2,2,-2,3),3,3,byrow = TRUE)
+print(A)
+```
+### a)Compute the determinant and rank of the Matrix A.  What can you say about the rank of the matrix from the determinant?
+```{r}
+det(A)
+qr(A)$rank
+```
+Since the determinant(13) is not zero, we know the matrix is not sigular. In this case, A has full rank.  We can confirm rank by putting A in reduced row echelon form, showing 3 non-zero pivots.
+```{r}
+library(pracma)
+rref(A)
+```
+
+### b) Write a code to calculate the eigenvalue-eigenvector pairs of the matrix A.
+
+```{r}
+A.eigen <- eigen(A)
+A.eigen
+```
+### c) Calculate the angle between the eigenvectors corresponding to the two largest eigenvalue in degrees. (2 points)
+```{r}
+degs<-function(rads) {
+  round(rads*180/pi, digits = 0)
+}
+theta <- function(v1, v2){
+  degs(acos(dot(v1, v2) / (sqrt(sum(v1^2)) * sqrt(sum(v2^2)))))
+}
+theta(A[,1], A[,2])
+```
+
