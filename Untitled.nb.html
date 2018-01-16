@@ -173,6 +173,53 @@ $(document).ready(function () {
 
 
 <!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5zdGFsbC5wYWNrYWdlcyhcIm1hdGxhYlwiKVxuYGBgIn0= -->
+<pre class="r"><code>install.packages(&quot;matlab&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiSW5zdGFsbGluZyBwYWNrYWdlIGludG8g4oCYL1VzZXJzL2phbWllc29oL0xpYnJhcnkvUi8zLjQvbGlicmFyeeKAmVxuKGFzIOKAmGxpYuKAmSBpcyB1bnNwZWNpZmllZClcbnRyeWluZyBVUkwgJ2h0dHBzOi8vY3Jhbi5yc3R1ZGlvLmNvbS9iaW4vbWFjb3N4L2VsLWNhcGl0YW4vY29udHJpYi8zLjQvbWF0bGFiXzEuMC4yLnRneidcbkNvbnRlbnQgdHlwZSAnYXBwbGljYXRpb24veC1nemlwJyBsZW5ndGggMTI0ODE4IGJ5dGVzICgxMjEgS0IpXG49PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PVxuZG93bmxvYWRlZCAxMjEgS0JcbiJ9 -->
+<pre><code>Installing package into ‘/Users/jamiesoh/Library/R/3.4/library’
+(as ‘lib’ is unspecified)
+trying URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.4/matlab_1.0.2.tgz'
+Content type 'application/x-gzip' length 124818 bytes (121 KB)
+==================================================
+downloaded 121 KB</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5UaGUgZG93bmxvYWRlZCBiaW5hcnkgcGFja2FnZXMgYXJlIGluXG5cdC92YXIvZm9sZGVycy82OC8ycWM3eDVkeDI5NzJ0ZzE0bTJ5bG02YzhzMF94aHovVC8vUnRtcGVQQWs4Wi9kb3dubG9hZGVkX3BhY2thZ2VzXG4ifQ== -->
+<pre><code>
+The downloaded binary packages are in
+    /var/folders/68/2qc7x5dx2972tg14m2ylm6c8s0_xhz/T//RtmpePAk8Z/downloaded_packages</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShcIm1hdGxhYlwiKVxuYGBgIn0= -->
+<pre class="r"><code>library(&quot;matlab&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYbWF0bGFi4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0cyBhcmUgbWFza2VkIGZyb20g4oCYcGFja2FnZTpwcmFjbWHigJk6XG5cbiAgICBjZWlsLCBleWUsIGZhY3RvcnMsIGZsaXBsciwgZmxpcHVkLCBoaWxiLFxuICAgIGlzZW1wdHksIGlzcHJpbWUsIGxpbnNwYWNlLCBsb2dzcGFjZSwgbWFnaWMsXG4gICAgbWVzaGdyaWQsIG1vZCwgbmRpbXMsIG5leHRwb3cyLCBudW1lbCwgb25lcyxcbiAgICBwYXNjYWwsIHBvdzIsIHByaW1lcywgcmVtLCByZXBtYXQsIHJvc3Nlciwgcm90OTAsXG4gICAgc2l6ZSwgc3RkLCBzdHJjbXAsIHRpYywgdG9jLCB2YW5kZXIsIHplcm9zXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6c3RhdHPigJk6XG5cbiAgICByZXNoYXBlXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0cyBhcmUgbWFza2VkIGZyb20g4oCYcGFja2FnZTp1dGlsc+KAmTpcblxuICAgIGZpbmQsIGZpeFxuXG5UaGUgZm9sbG93aW5nIG9iamVjdCBpcyBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOmJhc2XigJk6XG5cbiAgICBzdW1cbiJ9 -->
+<pre><code>
+Attaching package: ‘matlab’
+
+The following objects are masked from ‘package:pracma’:
+
+    ceil, eye, factors, fliplr, flipud, hilb,
+    isempty, isprime, linspace, logspace, magic,
+    meshgrid, mod, ndims, nextpow2, numel, ones,
+    pascal, pow2, primes, rem, repmat, rosser, rot90,
+    size, std, strcmp, tic, toc, vander, zeros
+
+The following object is masked from ‘package:stats’:
+
+    reshape
+
+The following objects are masked from ‘package:utils’:
+
+    find, fix
+
+The following object is masked from ‘package:base’:
+
+    sum</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <p>Consider the following Matrix:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -209,9 +256,14 @@ print(A)</code></pre>
 <p>Since the determinant(13) is not zero, we know the matrix is not sigular. In this case, A has full rank. We can confirm rank by putting A in reduced row echelon form, showing 3 non-zero pivots.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShwcmFjbWEpXG5ycmVmKEEpXG5gYGAifQ== -->
-<pre class="r"><code>library(pracma)
-rref(A)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShwcmFjbWEpXG5gYGAifQ== -->
+<pre class="r"><code>library(pracma)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoicGFja2FnZSDigJhwcmFjbWHigJkgd2FzIGJ1aWx0IHVuZGVyIFIgdmVyc2lvbiAzLjQuM1xuIn0= -->
+<pre><code>package ‘pracma’ was built under R version 3.4.3</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucnJlZihBKVxuYGBgIn0= -->
+<pre class="r"><code>rref(A)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiICAgICBbLDFdIFssMl0gWywzXVxuWzEsXSAgICAxICAgIDAgICAgMFxuWzIsXSAgICAwICAgIDEgICAgMFxuWzMsXSAgICAwICAgIDAgICAgMVxuIn0= -->
 <pre><code>     [,1] [,2] [,3]
@@ -248,24 +300,127 @@ $vectors
 <h3>c) Calculate the angle between the eigenvectors corresponding to the two largest eigenvalue in degrees. (2 points)</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGVnczwtZnVuY3Rpb24ocmFkcykge1xuICByb3VuZChyYWRzKjE4MC9waSwgZGlnaXRzID0gMClcbn1cbnRoZXRhIDwtIGZ1bmN0aW9uKHYxLCB2Mil7XG4gIGRlZ3MoYWNvcyhkb3QodjEsIHYyKSAvIChzcXJ0KHN1bSh2MV4yKSkgKiBzcXJ0KHN1bSh2Ml4yKSkpKSlcbn1cbnRoZXRhKEFbLDFdLCBBWywyXSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGVnczwtZnVuY3Rpb24ocmFkcykge1xuICByb3VuZChyYWRzKjE4MC9waSwgZGlnaXRzID0gMClcbn1cbnRoZXRhIDwtIGZ1bmN0aW9uKHYxLCB2Mil7XG4gIGRlZ3MoYWNvcyhkb3QodjEsIHYyKSAvIChzcXJ0KHN1bSh2MV4yKSkgKiBzcXJ0KHN1bSh2Ml4yKSkpKSlcbn1cbnRoZXRhKEEuZWlnZW4kdmVjdG9yc1ssMV0sIEEuZWlnZW4kdmVjdG9yc1ssMl0pXG5gYGAifQ== -->
 <pre class="r"><code>degs&lt;-function(rads) {
   round(rads*180/pi, digits = 0)
 }
 theta &lt;- function(v1, v2){
   degs(acos(dot(v1, v2) / (sqrt(sum(v1^2)) * sqrt(sum(v2^2)))))
 }
-theta(A[,1], A[,2])</code></pre>
+theta(A.eigen$vectors[,1], A.eigen$vectors[,2])</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEyNFxuIn0= -->
-<pre><code>[1] 124</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDkwXG4ifQ== -->
+<pre><code>[1] 90</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="d-is-the-matrix-a-positive-definite-2-points" class="section level3">
+<h3>d) Is the matrix A positive definite? (2 points)</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5zdGFsbC5wYWNrYWdlcyhcIm1hdHJpeGNhbGNcIilcbmBgYCJ9 -->
+<pre class="r"><code>install.packages(&quot;matrixcalc&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiSW5zdGFsbGluZyBwYWNrYWdlIGludG8g4oCYL1VzZXJzL2phbWllc29oL0xpYnJhcnkvUi8zLjQvbGlicmFyeeKAmVxuKGFzIOKAmGxpYuKAmSBpcyB1bnNwZWNpZmllZClcbnRyeWluZyBVUkwgJ2h0dHBzOi8vY3Jhbi5yc3R1ZGlvLmNvbS9iaW4vbWFjb3N4L2VsLWNhcGl0YW4vY29udHJpYi8zLjQvbWF0cml4Y2FsY18xLjAtMy50Z3onXG5Db250ZW50IHR5cGUgJ2FwcGxpY2F0aW9uL3gtZ3ppcCcgbGVuZ3RoIDE2NDgwOCBieXRlcyAoMTYwIEtCKVxuPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT1cbmRvd25sb2FkZWQgMTYwIEtCXG4ifQ== -->
+<pre><code>Installing package into ‘/Users/jamiesoh/Library/R/3.4/library’
+(as ‘lib’ is unspecified)
+trying URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.4/matrixcalc_1.0-3.tgz'
+Content type 'application/x-gzip' length 164808 bytes (160 KB)
+==================================================
+downloaded 160 KB</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5UaGUgZG93bmxvYWRlZCBiaW5hcnkgcGFja2FnZXMgYXJlIGluXG5cdC92YXIvZm9sZGVycy82OC8ycWM3eDVkeDI5NzJ0ZzE0bTJ5bG02YzhzMF94aHovVC8vUnRtcGVQQWs4Wi9kb3dubG9hZGVkX3BhY2thZ2VzXG4ifQ== -->
+<pre><code>
+The downloaded binary packages are in
+    /var/folders/68/2qc7x5dx2972tg14m2ylm6c8s0_xhz/T//RtmpePAk8Z/downloaded_packages</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShcIm1hdHJpeGNhbGNcIilcbkEuZWlnZW5cbmBgYCJ9 -->
+<pre class="r"><code>library(&quot;matrixcalc&quot;)
+A.eigen</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiZWlnZW4oKSBkZWNvbXBvc2l0aW9uXG4kdmFsdWVzXG5bMV0gOS4wODQ3NTY5IDMuNTA3MjM4OCAwLjQwODAwNDNcblxuJHZlY3RvcnNcbiAgICAgICAgICAgWywxXSAgICAgICBbLDJdICAgICAgICBbLDNdXG5bMSxdICAwLjg5ODk1ODAgLTAuNDMyNjM0MyAtMC4wNjg1NzIwM1xuWzIsXSAtMC4yMzE4MDc3IC0wLjYwMjY5MDIgIDAuNzYzNTYzNzlcblszLF0gIDAuMzcxNjcxNiAgMC42NzA1MTYyICAwLjY0MjA4MTE2XG4ifQ== -->
+<pre><code>eigen() decomposition
+$values
+[1] 9.0847569 3.5072388 0.4080043
+
+$vectors
+           [,1]       [,2]        [,3]
+[1,]  0.8989580 -0.4326343 -0.06857203
+[2,] -0.2318077 -0.6026902  0.76356379
+[3,]  0.3716716  0.6705162  0.64208116</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaXMucG9zaXRpdmUuZGVmaW5pdGUoQSlcbmBgYCJ9 -->
+<pre class="r"><code>is.positive.definite(A)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFRSVUVcbiJ9 -->
+<pre><code>[1] TRUE</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>All the eigen$values are &gt; 0, so A is positive-definite.</p>
+</div>
+<div id="e-let-t-be-the-matrix-constructed-by-stacking-the-eigenvectors-of-a-as-its-columns.-calculate-t1-a-t-.-2-points" class="section level3">
+<h3>e) Let T  be the matrix constructed by stacking the eigenvectors of A as its columns. Calculate T−1 A T . (2 points)</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGV0KEEuZWlnZW4kdmVjdG9ycylcbmBgYCJ9 -->
+<pre class="r"><code>det(A.eigen$vectors)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIC0xXG4ifQ== -->
+<pre><code>[1] -1</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2FsY3VsYXRpb24uZSA8LSBmdW5jdGlvbih2LCB0KXtcbiAgdGludiA8LSBpbnYodClcbiAgcHJkIDwtIHQodGludikgJSolIHZcbiAgdChwcmQpICUqJSB0XG59XG5jYWxjdWxhdGlvbi5lKEEsIEEuZWlnZW4kdmVjdG9ycylcbmBgYCJ9 -->
+<pre class="r"><code>calculation.e &lt;- function(v, t){
+  tinv &lt;- inv(t)
+  prd &lt;- t(tinv) %*% v
+  t(prd) %*% t
+}
+calculation.e(A, A.eigen$vectors)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICBbLDFdIFssMl0gWywzXVxuWzEsXSAgICA4ICAgLTEgICAgMlxuWzIsXSAgIC0xICAgIDIgICAtMlxuWzMsXSAgICAyICAgLTIgICAgM1xuIn0= -->
+<pre><code>     [,1] [,2] [,3]
+[1,]    8   -1    2
+[2,]   -1    2   -2
+[3,]    2   -2    3</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="f-find-the-trace-of-the-matrix-a.-2-points" class="section level3">
+<h3>f) Find the trace of the matrix A. (2 points)</h3>
+<p>By definition, the trace is the sum of the diagonals.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtKGRpYWcoQSkpXG5gYGAifQ== -->
+<pre class="r"><code>sum(diag(A))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEzXG4ifQ== -->
+<pre><code>[1] 13</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="g-finda2-.-2-points" class="section level3">
+<h3>g) Find A^2 . (2 points)</h3>
+<p>A^2 is also A dot A</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQSAlKiUgQVxuYGBgIn0= -->
+<pre class="r"><code>A %*% A</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICBbLDFdIFssMl0gWywzXVxuWzEsXSAgIDY5ICAtMTQgICAyNFxuWzIsXSAgLTE0ICAgIDkgIC0xMlxuWzMsXSAgIDI0ICAtMTIgICAxN1xuIn0= -->
+<pre><code>     [,1] [,2] [,3]
+[1,]   69  -14   24
+[2,]  -14    9  -12
+[3,]   24  -12   17</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAnQ1BEQSBTUDE4IEFzc2lnbm1lbnQgIzEnCm91dHB1dDoKICBwZGZfZG9jdW1lbnQ6IGRlZmF1bHQKICBodG1sX25vdGVib29rOiBkZWZhdWx0Ci0tLQpDb25zaWRlciB0aGUgZm9sbG93aW5nIE1hdHJpeDoKYGBge3J9CkEgPC0gbWF0cml4KGMoOCwtMSwyLC0xLDIsLTIsMiwtMiwzKSwzLDMsYnlyb3cgPSBUUlVFKQpwcmludChBKQpgYGAKIyMjIGEpQ29tcHV0ZSB0aGUgZGV0ZXJtaW5hbnQgYW5kIHJhbmsgb2YgdGhlIE1hdHJpeCBBLiAgV2hhdCBjYW4geW91IHNheSBhYm91dCB0aGUgcmFuayBvZiB0aGUgbWF0cml4IGZyb20gdGhlIGRldGVybWluYW50PwpgYGB7cn0KZGV0KEEpCnFyKEEpJHJhbmsKYGBgClNpbmNlIHRoZSBkZXRlcm1pbmFudCgxMykgaXMgbm90IHplcm8sIHdlIGtub3cgdGhlIG1hdHJpeCBpcyBub3Qgc2lndWxhci4gSW4gdGhpcyBjYXNlLCBBIGhhcyBmdWxsIHJhbmsuICBXZSBjYW4gY29uZmlybSByYW5rIGJ5IHB1dHRpbmcgQSBpbiByZWR1Y2VkIHJvdyBlY2hlbG9uIGZvcm0sIHNob3dpbmcgMyBub24temVybyBwaXZvdHMuCmBgYHtyfQpsaWJyYXJ5KHByYWNtYSkKcnJlZihBKQpgYGAKCiMjIyBiKSBXcml0ZSBhIGNvZGUgdG8gY2FsY3VsYXRlIHRoZSBlaWdlbnZhbHVlLWVpZ2VudmVjdG9yIHBhaXJzIG9mIHRoZSBtYXRyaXggQS4KCmBgYHtyfQpBLmVpZ2VuIDwtIGVpZ2VuKEEpCkEuZWlnZW4KYGBgCiMjIyBjKSBDYWxjdWxhdGUgdGhlIGFuZ2xlIGJldHdlZW4gdGhlIGVpZ2VudmVjdG9ycyBjb3JyZXNwb25kaW5nIHRvIHRoZSB0d28gbGFyZ2VzdCBlaWdlbnZhbHVlIGluIGRlZ3JlZXMuICgyIHBvaW50cykKYGBge3J9CmRlZ3M8LWZ1bmN0aW9uKHJhZHMpIHsKICByb3VuZChyYWRzKjE4MC9waSwgZGlnaXRzID0gMCkKfQp0aGV0YSA8LSBmdW5jdGlvbih2MSwgdjIpewogIGRlZ3MoYWNvcyhkb3QodjEsIHYyKSAvIChzcXJ0KHN1bSh2MV4yKSkgKiBzcXJ0KHN1bSh2Ml4yKSkpKSkKfQp0aGV0YShBWywxXSwgQVssMl0pCmBgYAoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAnQ1BEQSBTUDE4IEFzc2lnbm1lbnQgIzEnCm91dHB1dDoKICBodG1sX25vdGVib29rOiBkZWZhdWx0CiAgaHRtbF9kb2N1bWVudDogZGVmYXVsdAogIHBkZl9kb2N1bWVudDogZGVmYXVsdAotLS0KYGBge3J9Cmluc3RhbGwucGFja2FnZXMoIm1hdGxhYiIpCmxpYnJhcnkoIm1hdGxhYiIpCmBgYAoKQ29uc2lkZXIgdGhlIGZvbGxvd2luZyBNYXRyaXg6CmBgYHtyfQpBIDwtIG1hdHJpeChjKDgsLTEsMiwtMSwyLC0yLDIsLTIsMyksMywzLGJ5cm93ID0gVFJVRSkKcHJpbnQoQSkKYGBgCiMjIyBhKUNvbXB1dGUgdGhlIGRldGVybWluYW50IGFuZCByYW5rIG9mIHRoZSBNYXRyaXggQS4gIFdoYXQgY2FuIHlvdSBzYXkgYWJvdXQgdGhlIHJhbmsgb2YgdGhlIG1hdHJpeCBmcm9tIHRoZSBkZXRlcm1pbmFudD8KYGBge3J9CmRldChBKQpxcihBKSRyYW5rCmBgYApTaW5jZSB0aGUgZGV0ZXJtaW5hbnQoMTMpIGlzIG5vdCB6ZXJvLCB3ZSBrbm93IHRoZSBtYXRyaXggaXMgbm90IHNpZ3VsYXIuIEluIHRoaXMgY2FzZSwgQSBoYXMgZnVsbCByYW5rLiAgV2UgY2FuIGNvbmZpcm0gcmFuayBieSBwdXR0aW5nIEEgaW4gcmVkdWNlZCByb3cgZWNoZWxvbiBmb3JtLCBzaG93aW5nIDMgbm9uLXplcm8gcGl2b3RzLgpgYGB7cn0KbGlicmFyeShwcmFjbWEpCnJyZWYoQSkKYGBgCgojIyMgYikgV3JpdGUgYSBjb2RlIHRvIGNhbGN1bGF0ZSB0aGUgZWlnZW52YWx1ZS1laWdlbnZlY3RvciBwYWlycyBvZiB0aGUgbWF0cml4IEEuCgpgYGB7cn0KQS5laWdlbiA8LSBlaWdlbihBKQpBLmVpZ2VuCmBgYAojIyMgYykgQ2FsY3VsYXRlIHRoZSBhbmdsZSBiZXR3ZWVuIHRoZSBlaWdlbnZlY3RvcnMgY29ycmVzcG9uZGluZyB0byB0aGUgdHdvIGxhcmdlc3QgZWlnZW52YWx1ZSBpbiBkZWdyZWVzLiAoMiBwb2ludHMpCmBgYHtyfQpkZWdzPC1mdW5jdGlvbihyYWRzKSB7CiAgcm91bmQocmFkcyoxODAvcGksIGRpZ2l0cyA9IDApCn0KdGhldGEgPC0gZnVuY3Rpb24odjEsIHYyKXsKICBkZWdzKGFjb3MoZG90KHYxLCB2MikgLyAoc3FydChzdW0odjFeMikpICogc3FydChzdW0odjJeMikpKSkpCn0KdGhldGEoQS5laWdlbiR2ZWN0b3JzWywxXSwgQS5laWdlbiR2ZWN0b3JzWywyXSkKYGBgCgojIyMgZCkgSXMgdGhlIG1hdHJpeCBBIHBvc2l0aXZlIGRlZmluaXRlPyAoMiBwb2ludHMpCmBgYHtyfQppbnN0YWxsLnBhY2thZ2VzKCJtYXRyaXhjYWxjIikKbGlicmFyeSgibWF0cml4Y2FsYyIpCkEuZWlnZW4KaXMucG9zaXRpdmUuZGVmaW5pdGUoQSkKYGBgCgoKQWxsIHRoZSBlaWdlbiR2YWx1ZXMgYXJlID4gMCwgc28gQSBpcyBwb3NpdGl2ZS1kZWZpbml0ZS4KCiMjIyBlKSBMZXQgVCDCoGJlIHRoZSBtYXRyaXggY29uc3RydWN0ZWQgYnkgc3RhY2tpbmcgdGhlIGVpZ2VudmVjdG9ycyBvZiBBIGFzIGl0cyBjb2x1bW5zLiBDYWxjdWxhdGUgVOKIkjEgQSBUIC4gKDIgcG9pbnRzKQpgYGB7cn0KY2FsY3VsYXRpb24uZSA8LSBmdW5jdGlvbih2LCB0KXsKICB0aW52IDwtIGludih0KQogIHByZCA8LSB0KHRpbnYpICUqJSB2CiAgdChwcmQpICUqJSB0Cn0KCmNhbGN1bGF0aW9uLmUoQSwgQS5laWdlbiR2ZWN0b3JzKQoKYGBgCiMjIyBmKSBGaW5kIHRoZSB0cmFjZSBvZiB0aGUgbWF0cml4IEEuICgyIHBvaW50cykKQnkgZGVmaW5pdGlvbiwgdGhlIHRyYWNlIGlzIHRoZSBzdW0gb2YgdGhlIGRpYWdvbmFscy4KYGBge3J9CnN1bShkaWFnKEEpKQpgYGAKIyMjIGcpIEZpbmTCoEFeMiAuICgyIHBvaW50cykKQV4yIGlzIGFsc28gQSBkb3QgQQpgYGB7cn0KQSAlKiUgQQpgYGAKCgo=</div>
 
 
 

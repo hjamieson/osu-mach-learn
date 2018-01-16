@@ -1,9 +1,15 @@
 ---
 title: 'CPDA SP18 Assignment #1'
 output:
-  pdf_document: default
   html_notebook: default
+  html_document: default
+  pdf_document: default
 ---
+```{r}
+install.packages("matlab")
+library("matlab")
+```
+
 Consider the following Matrix:
 ```{r}
 A <- matrix(c(8,-1,2,-1,2,-2,2,-2,3),3,3,byrow = TRUE)
@@ -34,6 +40,40 @@ degs<-function(rads) {
 theta <- function(v1, v2){
   degs(acos(dot(v1, v2) / (sqrt(sum(v1^2)) * sqrt(sum(v2^2)))))
 }
-theta(A[,1], A[,2])
+theta(A.eigen$vectors[,1], A.eigen$vectors[,2])
 ```
+
+### d) Is the matrix A positive definite? (2 points)
+```{r}
+install.packages("matrixcalc")
+library("matrixcalc")
+A.eigen
+is.positive.definite(A)
+```
+
+
+All the eigen$values are > 0, so A is positive-definite.
+
+### e) Let T  be the matrix constructed by stacking the eigenvectors of A as its columns. Calculate T−1 A T . (2 points)
+```{r}
+calculation.e <- function(v, t){
+  tinv <- inv(t)
+  prd <- t(tinv) %*% v
+  t(prd) %*% t
+}
+
+calculation.e(A, A.eigen$vectors)
+
+```
+### f) Find the trace of the matrix A. (2 points)
+By definition, the trace is the sum of the diagonals.
+```{r}
+sum(diag(A))
+```
+### g) Find A^2 . (2 points)
+A^2 is also A dot A
+```{r}
+A %*% A
+```
+
 

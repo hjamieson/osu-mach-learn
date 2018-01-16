@@ -4,43 +4,47 @@ A
 # compute the determinant of A
 detOfA <- det(A)
 
-# gaussian reduction using pracma package
+qr(A)
 install.packages("pracma")
 library(pracma)
-A.rref<-rref(A)
-A.rref
+degs<-function(rads) {
+  rads*180/pi
+}
+theta <- function(v1, v2){
+  degs(acos(dot(v1, v2) / (sqrt(sum(v1^2)) * sqrt(sum(v2^2)))))
+}
+v1<-c(1,1,0)
+v2<-c(0,1,0)
+theta(v1,v2)
+v1 %*% v2
 
-# get the rank of A
-library(Matrix)
-Arank <-rankMatrix(A)
-Arank
-determinant(A)
-unlist(determinant(A))
-det(A)
-A
+install.packages("rmarkdown")
 
-# eigencalues of A
-a.eigen<-eigen(A)
-# ignore
-#dot product
-a<-c(2,9,-3)
-b<-c(-3,-4,8)
-dot(a,b)
-length(a)
-sum(a^2)
-sum(b^2)
-a.eigen$vectors[3,1]
-a.eigen$vectors[,1]
-sum(a.eigen$vectors[,1]^2)
-a.eigen$vectors[1,1]^2
-a.eigen$vectors[2,1]^2
-a.eigen$vectors[3,1]^2
+e <- eigen(A)
+e$vectors[,2]
+dot(e$vectors[,1], e$vectors[,2])
+v1 <- e$vectors[,1]
+v2 <- e$vectors[,2]
+(sqrt(sum(v1^2)) * sqrt(sum(v2^2)))
 
-a.eigen$vectors[1,1]^2 +
-a.eigen$vectors[2,1]^2 +
-a.eigen$vectors[3,1]^2
+sum(v1^2)
+theta(e$vectors[,1], e$vectors[,2])
+degs(1.570796)
+?t
 
 
+calculation.e <- function(v, t){
+  tinv <- inv(t)
+  prd <- t(tinv) %*% v
+  t(prd) %*% t
+}
 
-a.mag <-sqrt(sum(a.eigen$vectors[,1]^2))
-b.mag <-sqrt(sum(a.eigen$vectors[,2]^2))
+calculation.e(A, A.eigen$vectors)
+tinv <- inv(A.eigen$vectors)
+xxx <- tinv %*% A
+yyy <- xxx %*% A.eigen$vectors
+yyy
+t(A)
+t(inv(A.eigen$vectors))
+t<-A.eigen$vectors
+?t
