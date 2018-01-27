@@ -21,7 +21,7 @@ airlines <- c('AIR_INDIA', 'BRITISH_AIRWAYS', 'EMIRATES',
 Read data from csv files containing flight prices. Each csv is named after an airport. The prices in that csv correspond to prices for DIRECT FLIGHT, FROM that airport. The columns of the csv represent airline chosen and ROWS represent the DESTINATION
 
 ```{r}
-#setwd("/Users/gaurav/Personal/OSU/Spring18/CPDASP18/module_3/")
+#setwd("/Users/jamiesoh/Development/osu/machine-learning/r/osu-mach-learn/")
 
 read_csv <- function(file_name) {
   temp <- read.csv(file_name)
@@ -44,9 +44,22 @@ price_matrix = list(BOM, NYC, DXB, LHR, FRA, DOH) # This is same order as airpor
 
 Fill the function below
 ```{r}
+
+cost <- function(from, to){
+  rowx <- price_matrix[[from]][to,]
+  minx <- 1
+  posx <- 1
+  while (posx <= ncol(rowx)){
+    if (rowx[posx] < rowx[minx]) minx <- posx
+    posx <- posx + 1
+  }
+  rowx[minx]
+}
 lowest_cost_BOM_to_NYC_direct <- function() {
   # Write your code here
-  
+index_of_from <- which(airports=="BOM")[1]
+index_of_to <- which(airports=="NYC")[1]
+  cost(index_of_from, index_of_to)
 }
 
 (lowest_cost_BOM_to_NYC_direct())
@@ -66,6 +79,7 @@ lowest_cost_direct_flight <- function(from, to) {
   
   # Write your code here
   
+  cost(index_of_from, to)
 }
 
 (lowest_cost_direct_flight('BOM', 'NYC'))
@@ -77,8 +91,18 @@ Fill the function below
 ```{r}
 lowest_cost_direct_flight_matrix <- function(airports) {
   # Write your code here
+  num_ports <- length(airports)
+  mx <- matrix(0, num_ports,num_ports)
+  rownames(mx) <- airports
+  colnames(mx) <- airports
+  for (p in 1:num_ports){
+    for (j in 1:num_ports){
+      mx[p,j] = cost(p,j)[1,1]
+    }
+  }
+  mx
 }
-
+options(scipen=999)
 (lowest_cost_direct_flight_matrix(airports))
 ```
 
