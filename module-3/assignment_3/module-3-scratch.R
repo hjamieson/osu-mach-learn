@@ -28,3 +28,14 @@ lowcost <- function(from, to){
   rowx[minx,1]
 }
 lowcost(1,2)
+airports <- c('BOM', 'NYC', 'DXB', 'LHR', 'FRA', 'DOH')
+which(airports == 'BOM')
+pts <- c(1:6)
+all_paths <-function(pts, fr, to, hops){
+  if (hops == 0) c(fr,to)
+  else {
+    all_paths(pts, fr, to, 0) + all_paths(ptd, fr, to, hops-1)
+  }  
+}
+all_paths(c(1,2,3), 1, 2, 0)
+all_paths(c(1,2,3), 1, 2, 1)
