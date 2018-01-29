@@ -1,8 +1,8 @@
 ---
 title: "Assignment 3"
 output:
-  pdf_document: default
   html_notebook: default
+  pdf_document: default
 ---
 
 In this assignment, we will design an algorithm that will give us the cheapest flights from source to destination. We will use real flight prices from kayak.com and develop our own DP algorithm that will give us a sequence of flights whose total cost is cheaper than the cheapest (one/multi-stop) flight on kayak.com
@@ -22,6 +22,7 @@ Read data from csv files containing flight prices. Each csv is named after an ai
 
 ```{r}
 #setwd("/Users/jamiesoh/Development/osu/machine-learning/r/osu-mach-learn/")
+setwd("/Users/hughj/Development/osu/osu-mach-learn/module-3/assignment_3/")
 
 read_csv <- function(file_name) {
   temp <- read.csv(file_name)
@@ -44,22 +45,22 @@ price_matrix = list(BOM, NYC, DXB, LHR, FRA, DOH) # This is same order as airpor
 
 Fill the function below
 ```{r}
-
-cost <- function(from, to){
-  rowx <- price_matrix[[from]][to,]
-  minx <- 1
-  posx <- 1
-  while (posx <= ncol(rowx)){
-    if (rowx[posx] < rowx[minx]) minx <- posx
-    posx <- posx + 1
+lowest_cost_direct <- function(from, to){
+    rowx <- price_matrix[[from]][to,]
+    minx <- 1
+    posx <- 1
+    while (posx <= ncol(rowx)){
+      if (rowx[posx] < rowx[minx]) minx <- posx
+      posx <- posx + 1
+    }
+    rowx[minx]
   }
-  rowx[minx]
-}
+
 lowest_cost_BOM_to_NYC_direct <- function() {
   # Write your code here
-index_of_from <- which(airports=="BOM")[1]
-index_of_to <- which(airports=="NYC")[1]
-  cost(index_of_from, index_of_to)
+  index_of_from <- which(airports=="BOM")[1]
+  index_of_to <- which(airports=="NYC")[1]
+  lowest_cost_direct(index_of_from, index_of_to)
 }
 
 (lowest_cost_BOM_to_NYC_direct())
@@ -78,8 +79,7 @@ lowest_cost_direct_flight <- function(from, to) {
   prices_from <- price_matrix[index_of_from][[1]]
   
   # Write your code here
-  
-  cost(index_of_from, to)
+  lowest_cost_direct(index_of_from, to)
 }
 
 (lowest_cost_direct_flight('BOM', 'NYC'))
@@ -97,7 +97,7 @@ lowest_cost_direct_flight_matrix <- function(airports) {
   colnames(mx) <- airports
   for (p in 1:num_ports){
     for (j in 1:num_ports){
-      mx[p,j] = cost(p,j)[1,1]
+      mx[p,j] = lowest_cost_direct(p,j)[1,1]
     }
   }
   mx

@@ -39,3 +39,39 @@ all_paths <-function(pts, fr, to, hops){
 }
 all_paths(c(1,2,3), 1, 2, 0)
 all_paths(c(1,2,3), 1, 2, 1)
+
+lmcost <- function(fr, to, hops) {
+  airports <- 1:6
+  
+  helper <- function(fr, to, hops, visited) {
+    if (hops == 0)
+      lowest_cost_direct(fr, to)
+    else{
+      # what approaches are available?
+      avail <- airports[!(airports %in% visited)]
+      costs <-
+        sapply(avail, function(approach) {
+          helper(approach, to, hops - 1, c(visited, approach)) +
+            helper(fr, approach, 0, c(visited,approach))
+        })
+      min(unlist(costs))
+    }
+  }
+  helper(fr, to, hops, c(fr, to))
+}
+
+lmcost(1,2,0)
+lmcost(1,2,1)
+
+
+lcfm <- function(airports, maxhops){
+  n <- length(airports)
+  m <- matrix(0,n,n)
+  for (i in 1:n){
+    for (j in 1:n){
+      m[i,j]<- lmcost(i, j, maxhops)
+    }
+  }
+  m
+}
+lcfm(airports, 0)
