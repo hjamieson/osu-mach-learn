@@ -112,8 +112,17 @@ Fill the function below
 ```{r}
 lowest_cost_flight_matrix <- function(airports, max_layovers) {
   # Write your code here
+  # create the matrix of all possible (fr,to) combinations:
   
+  # helper function to calculate the cost
+  helper <- function(fr,to, vect, hops, accum){
+    # terminal condition: hops==0
+    if (hops == 0) accum + lowest_cost_direct_flight(fr, to)
+    else -1
+  }
+  helper("NYC","BOM", airports, max_layovers, 0)
 }
+(lowest_cost_flight_matrix(c("NYC","BOM"), 0))
 ```
 
 
