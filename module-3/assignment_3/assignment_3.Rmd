@@ -21,8 +21,8 @@ airlines <- c('AIR_INDIA', 'BRITISH_AIRWAYS', 'EMIRATES',
 Read data from csv files containing flight prices. Each csv is named after an airport. The prices in that csv correspond to prices for DIRECT FLIGHT, FROM that airport. The columns of the csv represent airline chosen and ROWS represent the DESTINATION
 
 ```{r}
-#setwd("/Users/jamiesoh/Development/osu/machine-learning/r/osu-mach-learn/")
-setwd("/Users/hughj/Development/osu/osu-mach-learn/module-3/assignment_3/")
+setwd("/Users/jamiesoh/Development/osu/osu-mach-learn/module-3/assignment_3/")
+#setwd("/Users/hughj/Development/osu/osu-mach-learn/module-3/assignment_3/")
 
 read_csv <- function(file_name) {
   temp <- read.csv(file_name)
@@ -114,13 +114,33 @@ lowest_cost_flight_matrix <- function(airports, max_layovers) {
   # Write your code here
   # create the matrix of all possible (fr,to) combinations:
   
-  # helper function to calculate the cost
+  # helper function to calculate the cost.  we keep the total cost for the path in accum.
   helper <- function(fr,to, vect, hops, accum){
     # terminal condition: hops==0
     if (hops == 0) accum + lowest_cost_direct_flight(fr, to)
-    else -1
+    else {
+      # not a direct flight. calculate the costs of all possible previous layovers
+      layovers <- vect[!(vect %in% c(fr,to))]  # we should get a vector here
+      if (length(layovers) < 1) stop
+      # if layover==1, we couls have a-b-e, a-c-e, a-d-e.  we have to add the cost of the
+      # tail to the cost of the rest of the flight, then take the minimum.
+      fff<-sapply(layovers, function(s){helper(fr, s, vect[!(vect %in% s)],hops-1, accum) + 
+          helper(s, to, vect[!(vect %in% s)],hops-1, accum)})
+      sapply(fff,min)
+    }
   }
-  helper("NYC","BOM", airports, max_layovers, 0)
+  #helper("NYC","BOM", airports, max_layovers, 0)
+  msize <- length(airports)
+  mx <- matrix(0, msize, msize, dimnames = list(airports, airports))
+  for (i in airports){
+    ix <- which(airports == i)[1]
+    for (j in airports){
+      jx <- which(airports == j)[1]
+      if (i == j) mx[ix, jx] <- 0
+      else mx[ix,jx] <- helper(i, j, airports, max_layovers, 0)
+    }
+  }
+  mx
 }
 (lowest_cost_flight_matrix(c("NYC","BOM"), 0))
 ```
