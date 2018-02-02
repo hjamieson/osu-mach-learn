@@ -1,8 +1,10 @@
 ---
 title: "Assignment 3"
+author: "Hugh Jamieson/jamieson.65"
 output:
-  html_notebook: default
   pdf_document: default
+  html_notebook: default
+  html_document: default
 ---
 
 In this assignment, we will design an algorithm that will give us the cheapest flights from source to destination. We will use real flight prices from kayak.com and develop our own DP algorithm that will give us a sequence of flights whose total cost is cheaper than the cheapest (one/multi-stop) flight on kayak.com
@@ -21,8 +23,8 @@ airlines <- c('AIR_INDIA', 'BRITISH_AIRWAYS', 'EMIRATES',
 Read data from csv files containing flight prices. Each csv is named after an airport. The prices in that csv correspond to prices for DIRECT FLIGHT, FROM that airport. The columns of the csv represent airline chosen and ROWS represent the DESTINATION
 
 ```{r}
-setwd("/Users/jamiesoh/Development/osu/osu-mach-learn/module-3/assignment_3/")
-#setwd("/Users/hughj/Development/osu/osu-mach-learn/module-3/assignment_3/")
+#setwd("/Users/jamiesoh/Development/osu/osu-mach-learn/module-3/assignment_3/")
+setwd("/Users/hughj/Development/osu/osu-mach-learn/module-3/assignment_3/")
 
 read_csv <- function(file_name) {
   temp <- read.csv(file_name)
@@ -45,22 +47,11 @@ price_matrix = list(BOM, NYC, DXB, LHR, FRA, DOH) # This is same order as airpor
 
 Fill the function below
 ```{r}
-lowest_cost_direct <- function(from, to){
-    rowx <- price_matrix[[from]][to,]
-    minx <- 1
-    posx <- 1
-    while (posx <= ncol(rowx)){
-      if (rowx[posx] < rowx[minx]) minx <- posx
-      posx <- posx + 1
-    }
-    rowx[minx]
-  }
-
 lowest_cost_BOM_to_NYC_direct <- function() {
   # Write your code here
   index_of_from <- which(airports=="BOM")[1]
   index_of_to <- which(airports=="NYC")[1]
-  lowest_cost_direct(index_of_from, index_of_to)
+  min(price_matrix[[index_of_from]][index_of_to,])
 }
 
 (lowest_cost_BOM_to_NYC_direct())
@@ -79,7 +70,7 @@ lowest_cost_direct_flight <- function(from, to) {
   prices_from <- price_matrix[index_of_from][[1]]
   
   # Write your code here
-  lowest_cost_direct(index_of_from, to)
+  min(prices_from[which(airports==to)[1],])
 }
 
 (lowest_cost_direct_flight('BOM', 'NYC'))
@@ -95,9 +86,9 @@ lowest_cost_direct_flight_matrix <- function(airports) {
   mx <- matrix(0, num_ports,num_ports)
   rownames(mx) <- airports
   colnames(mx) <- airports
-  for (p in 1:num_ports){
-    for (j in 1:num_ports){
-      mx[p,j] = lowest_cost_direct(p,j)[1,1]
+  for (fr in airports){
+    for (to in airports){
+      mx[fr,to] = lowest_cost_direct_flight(fr,to)
     }
   }
   mx
@@ -114,30 +105,60 @@ lowest_cost_flight_matrix <- function(airports, max_layovers) {
   # Write your code here
   # create the matrix of all possible (fr,to) combinations:
   
+  # cache the direct costs for later
+  lcdfm <- lowest_cost_direct_flight_matrix(airports)
+  
   # helper function to calculate the cost.  we keep the total cost for the path in accum.
-  helper <- function(fr,to, vect, hops, accum){
+  # args: fr = from
+  #   to = destination
+  #   vect = hops visited
+  #   hops = number of hops left
+  helper <- function(fr, to, vect, hops) {
+    #cat(sprintf("helper: fr=%s, to=%s,vect=%s, hops=%d\n", fr, to, paste(vect), hops),'\n')
     # terminal condition: hops==0
-    if (hops == 0) accum + lowest_cost_direct_flight(fr, to)
+    if (hops == 0) {
+      accum <- lcdfm[fr, to]
+    }
     else {
-      # not a direct flight. calculate the costs of all possible previous layovers
-      layovers <- vect[!(vect %in% c(fr,to))]  # we should get a vector here
-      if (length(layovers) < 1) stop
+      # not a direct flight. calculate the costs of all possible previous layovers.
+      # we try to employ bellman principal by calculating the tails least cost:
+      layovers <-
+        vect[!(vect %in% c(fr, to))]  # we should get a vector here
+      
+      #cat(paste(c("layovers= ", layovers)), '\n')
+      
+      if (length(layovers) < 1)
+        stop  # This should never happen if our dim is right!
+      
       # if layover==1, we couls have a-b-e, a-c-e, a-d-e.  we have to add the cost of the
       # tail to the cost of the rest of the flight, then take the minimum.
-      fff<-sapply(layovers, function(s){helper(fr, s, vect[!(vect %in% s)],hops-1, accum) + 
-          helper(s, to, vect[!(vect %in% s)],hops-1, accum)})
-      sapply(fff,min)
+      min_layover <- 2 ^ 30   # prevent using 0 cost as minimum.
+      for (layover in layovers) {
+        hop_cost <-
+          helper(fr, layover, vect[!(vect %in% layover)], hops - 1) +
+          helper(layover, to, vect[!(vect %in% layover)], hops - 1)
+        
+        if (hop_cost < min_layover) {
+          min_layover <- hop_cost
+        }
+      }
+      accum <- min_layover
     }
+    # if the direct flight is cheaper, just use it.
+    if (accum < lcdfm[fr,to]) return(accum)
+    else return( lcdfm[fr,to])
   }
-  #helper("NYC","BOM", airports, max_layovers, 0)
+  
   msize <- length(airports)
   mx <- matrix(0, msize, msize, dimnames = list(airports, airports))
-  for (i in airports){
-    ix <- which(airports == i)[1]
-    for (j in airports){
-      jx <- which(airports == j)[1]
-      if (i == j) mx[ix, jx] <- 0
-      else mx[ix,jx] <- helper(i, j, airports, max_layovers, 0)
+  for (i in airports) {
+    for (j in airports) {
+      if (i == j) {
+        mx[i, j] <- 0
+      }
+      else {
+        mx[i, j] <- helper(i, j, airports, max_layovers)
+      }
     }
   }
   mx
@@ -173,9 +194,86 @@ Try changing max_layovers to 2. You will see a significant increase in runtime! 
 ##Q5. (Bonus Question) Try to use memoization
 
 ```{r}
+library("hashmap")
 faster_lowest_cost_flight_matrix <- function(airports, max_layovers) {
+  # cache the direct costs for later
+  lcdfm <- lowest_cost_direct_flight_matrix(airports)
+  # well use a hashmap to cache recently computed tails for memoization
+  set.seed(13)
+  tail_cache <- hashmap(c("xxx"), 0)
   
+  makeFlightName <- function(vectr){
+    paste(vectr, collapse = '')
+  }
+  makeFlightVector <- function(fr,to, v){
+    c(fr,v,to)
+  }
+  
+  # helper function to calculate the cost.  we keep the total cost for the path in accum.
+  # args: fr = from
+  #   to = destination
+  #   vect = hops visited
+  #   hops = number of hops left
+  helper <- function(path, hops) {
+#    cat(sprintf("helper=>path(%s), hops(%d)\n",makeFlightName(path),hops))
+    # terminal condition: hops==0
+    if (hops == 0) {
+      accum <- lcdfm[path[1], path[-1]]
+    }
+    else {
+      # not a direct flight. calculate the costs of all possible previous layovers.
+      # we try to employ bellman principal by calculating the tails least cost:
+      layovers <- airports[!(airports %in% path)]  # we should get a vector here
+      
+      if (length(layovers) < 1)
+        stop  # This should never happen if our dim is right!
+      
+      # if layover==1, we couls have a-b-e, a-c-e, a-d-e.  we have to add the cost of the
+      # tail to the cost of the rest of the flight, then take the minimum.
+      min_layover <- 2 ^ 30   # prevent using 0 cost as minimum.
+      for (layover in layovers) {
+        # insert the layover into the current path
+        flight_vector <- c(path[1], layover, path[2:length(path)])
+        flight_path <- makeFlightName(flight_vector)
+ #       cat(sprintf("flight_path=%s\n", flight_path))
+        # if flight has already been costed, use it
+        if (tail_cache$has_key(flight_path)) {
+#          cat(sprintf("using cache %s\n", flight_path))
+          accum <- tail_cache[[flight_path]]
+        }else {
+          head_cost <- helper(flight_vector[1:2], hops - 1)
+          tail_cost <- helper(flight_vector[2:length(flight_vector)], hops - 1)
+          hop_cost <- head_cost+tail_cost
+          
+          if (hop_cost < min_layover) {
+            min_layover <- hop_cost
+          }
+          # add to cache
+          tail_cache$insert(flight_path, min_layover)
+        }
+      }
+      accum <- min_layover
+    }
+    # if the direct flight is cheaper, just use it.
+    if (accum < lcdfm[path[1],path[length(path)]]) return(accum)
+    else return( lcdfm[path[1],path[length(path)]])
+  }
+  
+  msize <- length(airports)
+  mx <- matrix(0, msize, msize, dimnames = list(airports, airports))
+  for (i in airports) {
+    for (j in airports) {
+      if (i == j) {
+        mx[i, j] <- 0
+      }
+      else {
+        mx[i, j] <- helper(c(i, j), max_layovers)
+      }
+    }
+  }
+  mx
 }
+(faster_lowest_cost_flight_matrix(airports, 5))
 ```
 
 ##Q6. (Bonus Question) What will happen if you try to increase number of states? Hint: Read curse of dimensionality in Dynamic Programming
