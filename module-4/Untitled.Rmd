@@ -1,0 +1,35 @@
+---
+title: "Assignment 4 - Recognition of Handwritten Digits"
+author: "Hugh Jamieson, jamieson.65"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+image_data <- read.csv("image_data.txt", sep = ';', header = FALSE)
+dim(image_data)
+labels <- read.csv("labels.txt", header = FALSE)
+dim(labels)
+w1<-read.csv("W1.txt", header = FALSE, sep = ";")
+dim(w1)
+w2 <- read.csv("W2.txt", header = FALSE, sep = ";")
+dim(w2)
+```
+
+```{r}
+sigma <- function(z){
+  1 / (1 + exp(-z))
+}
+mat<-matrix(c(0.8558,0.5236,0.6708,0.2988), 2,2,byrow = TRUE)
+sigma(mat)
+
+```
+```{r}
+s1<-t(image_data[1,])
+s1b<-rbind(1, s1)
+dim(s1b)
+```
+
