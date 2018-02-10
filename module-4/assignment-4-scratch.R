@@ -9,6 +9,7 @@ w2 <- as.matrix(read.csv("W2.txt", header = FALSE, sep = ";"))
 sigma <- function(z){
   1 / (1 + exp(-z))
 }
+library("sigmoid")
 p <-function(im){
   s1<-matrix(im,nrow=1,ncol=400)
   s1b<-rbind(1, t(s1))
