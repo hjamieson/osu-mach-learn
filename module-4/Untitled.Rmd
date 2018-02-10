@@ -1,10 +1,13 @@
 ---
 title: "Assignment 4 - Recognition of Handwritten Digits"
 author: "Hugh Jamieson, jamieson.65"
-output: html_notebook
+output:
+  pdf_document: default
+  html_notebook: default
 ---
 
 ```{r}
+setwd("/Users/hughj/Development/osu/osu-mach-learn/module-4")
 image_data <- as.matrix(read.csv("image_data.txt", sep = ';', header = FALSE))
 labels <- as.matrix(read.csv("labels.txt", header = FALSE))
 w1<-as.matrix(read.csv("W1.txt", header = FALSE, sep = ";"))
