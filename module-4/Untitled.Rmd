@@ -1,35 +1,81 @@
 ---
 title: "Assignment 4 - Recognition of Handwritten Digits"
 author: "Hugh Jamieson, jamieson.65"
-output: html_notebook
+output:
+  pdf_document: default
+  html_notebook: default
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
-
 ```{r}
-image_data <- read.csv("image_data.txt", sep = ';', header = FALSE)
+setwd("/Users/hughj/Development/osu/osu-mach-learn/module-4")
+image_data <- as.matrix(read.csv("image_data.txt", sep = ';', header = FALSE))
+labels <- as.matrix(read.csv("labels.txt", header = FALSE))
+w1<-as.matrix(read.csv("W1.txt", header = FALSE, sep = ";"))
+w2 <- as.matrix(read.csv("W2.txt", header = FALSE, sep = ";"))
+
 dim(image_data)
-labels <- read.csv("labels.txt", header = FALSE)
 dim(labels)
-w1<-read.csv("W1.txt", header = FALSE, sep = ";")
 dim(w1)
-w2 <- read.csv("W2.txt", header = FALSE, sep = ";")
 dim(w2)
 ```
 
 ```{r}
+#(c) implement feedforward propagation
 sigma <- function(z){
   1 / (1 + exp(-z))
 }
-mat<-matrix(c(0.8558,0.5236,0.6708,0.2988), 2,2,byrow = TRUE)
-sigma(mat)
-
+neural.net <-function(im){
+  s1<-matrix(im,nrow=1,ncol=400)
+  s1b<-rbind(1, t(s1))
+  s2 <- sigma(w1 %*% s1b) 
+  s2b<-rbind(1, s2)
+  s3 <- sigma(w2 %*% s2b)
+  s3
+}
 ```
+## predict a sample row
 ```{r}
-s1<-t(image_data[1,])
-s1b<-rbind(1, s1)
-dim(s1b)
+sample.row.test<-neural.net(image_data[1,])
+t(sample.row.test)
+# select the highest value
+which(sample.row.test==max(sample.row.test))
+
+```
+## Process all 2500 images and summarize our prediction output
+```{r}
+output.layer<- t(apply(image_data,1,neural.net))
+prediction<-apply(output.layer, 1, function(nodes){which(nodes == max(nodes))})
+# print count of each estimated images
+library(plyr)
+count(prediction)
 ```
 
+## Summarize the labels data (for reference)
+```{r}
+count(labels)
+```
+## (d) Calculate percent accuracy (correct predictions/total images)
+```{r}
+table(labels, prediction)
+pct.accuracy<-colMeans(prediction==labels)
+cat(sprintf("Prediction accuracy=%f", pct.accuracy*100))
+```
+## (e) Generate random image and classlify
+```{r}
+# (e) generate a random image and plot
+test.image = as.matrix(runif(400))
+image(test.image)
+# test.image - feed to neural net
+img.e<-neural.net(test.image)
+cat(sprintf("number prediction = %d",which(img.e == max(img.e))))
+```
+###(i)
+The network defines nonlinear boundaries, regardless of the input data.  The
+random pattern is simply defining the same boundary that would be occupied
+by one of the digits.
+
+###(ii)
+If the input sensors are subjected to lots of noise (random signals), it is entirely reasonable to assume that the neural net would classify objects mistakenly.  Clear evidence in the previous exercise.  Intuitively, the neural net is attempting to discriminate fine details in the data, and ignores everything else. High noise make it difficult for the system to tell the difference (ignore). Is there a way for all nodes to be zero?
+
+###(iii)
+Perhaps it would be possible to alter the training data to make the image boundary larger.  ie if the net is looking for smaller details in the data, perhaps it could be widened to detect larger or more significant details to signal a strong detection.  When images with high noise are processed, it could require more positive data identification before positive signaling. Basically, reduce the amount of signal the process ignores.
