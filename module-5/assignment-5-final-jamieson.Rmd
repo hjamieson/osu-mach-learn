@@ -1,0 +1,65 @@
+---
+title: 'CPDA SP18 Assignment #5'
+author: "Hugh Jamieson, jamieson.65"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+# Eigenfaces
+## (a) Import data into workspace and print dimensions.
+```{r}
+setwd("/Users/hughj/Development/osu/osu-mach-learn/module-5")
+X <- as.matrix(read.csv("my_data_pca.txt", header = FALSE))
+dim(X)
+```
+## (b) Compute the mean of each feature and subtract from each column
+```{r}
+moef <- as.matrix(apply(X, 1, mean))
+Y <- apply(X, 2, function(m){m - t(moef)})
+dim(Y)
+hist(apply(Y, 1, mean))
+```
+
+## (c) Calculate the covariance of Y given by C = t(Y)Y
+```{r}
+C<- t(Y) %*% Y
+dim(C)
+```
+
+## (d) Find the eigenvalues and eigenvectors of the matrix C.
+```{r}
+c.eigen <- eigen(C)
+
+```
+
+## (e)Order the eigenvalues of the matrix from the largest to smallest, and plot the ordered eigenvalues.
+```{r}
+sorted.values<-sort(c.eigen$values, decreasing = TRUE)
+plot(sorted.values)
+
+```
+
+## (f) We wish to keep only 12 eigenvectors corresponding to 12 largest eigenvalues. Stack these 12 eigenvectors as columns of a matrix V.
+```{r}
+s <- apply(as.matrix(sorted.values), 1, function(n){which(c.eigen$values == n)})[1:12]
+V<-c.eigen$vectors[,s]
+dim(V)
+
+```
+
+## (g) Find E = Y * V. The eigenfaces are given by the resultant matrix E. What is the dimension of E. 
+```{r}
+E <- Y %*% V
+dim(E)
+```
+
+## (h) Convert E into 12 images where each image is of dimension 85 x 60, and use image(.) function in R to display each of the 12 images.
+```{r}
+for (img in 1:12){
+  image(matrix(E[,img], 85, 60), axes=FALSE, col=grey(seq(0,1,length=256)))
+  cat("##\n")
+}
+
+```
+
